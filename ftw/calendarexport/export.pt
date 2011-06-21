@@ -1,0 +1,30 @@
+<script type="text/javascript">
+    jq(function() {
+        jq('#cal_from, #cal_to').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd.mm.yy'});
+
+        jq('input[name=export-search-button]').click(function(e) {
+            e.preventDefault();
+            var formdata = jq('#exportsearchform').serializeArray();
+            console.info(formdata);
+            jq.get('calexport_results', formdata, function(data) {
+                jq('#calexport-searchresults').html(data);
+            });
+        });
+    });
+</script>
+<div tal:condition="view/active" i18n:domain="ftw.calendarexport">
+    <form action="" method="get" id="exportsearchform">
+        <label for="cal_from" i18n:translate="label_from">From</label>
+        <input type="text" id="cal_from" name="from" />
+        <label for="cal_to" i18n:translate="label_to">To</label>
+        <input type="text" id="cal_to" name="to" />
+        <input type="submit" i18n:attributes="value label_export" value="Export"
+               name="export-search-button" class="standalone allowMultiSubmit"
+               />
+    </form>
+    
+    <div id="calexport-searchresults">&nbsp;</div>
+</div>

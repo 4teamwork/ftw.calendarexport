@@ -1,6 +1,3 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -12,30 +9,29 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: ftw.calendarexport\n"
+"Domain: DOMAIN\n"
 
 #. Default: "Export"
 #: ftw.calendarexport/ftw/calendarexport/export.pt:21
 msgid "label_export"
-msgstr ""
+msgstr "Exportieren"
 
 #. Default: "From"
 #: ftw.calendarexport/ftw/calendarexport/export.pt:17
 #: ftw.calendarexport/ftw/calendarexport/results.pt:18
 msgid "label_from"
-msgstr ""
+msgstr "Von"
 
 #. Default: "Title"
 #: ftw.calendarexport/ftw/calendarexport/results.pt:17
 msgid "label_title"
-msgstr ""
+msgstr "Titel"
 
 #. Default: "To"
 #: ftw.calendarexport/ftw/calendarexport/export.pt:19
 #: ftw.calendarexport/ftw/calendarexport/results.pt:19
 msgid "label_to"
-msgstr ""
+msgstr "Bis"
+
 

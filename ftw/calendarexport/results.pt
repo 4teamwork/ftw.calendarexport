@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    jq(function() {
+        jq('.selectAll').click(function() {
+            if (jq(this).attr('checked')) {
+                jq('input[name=uids:list]').attr('checked', 'checked');
+            }
+            else {
+                jq('input[name=uids:list]').attr('checked', '');
+            }
+        });
+    });
+</script>
+
+<form tal:attributes="action string:${context/portal_url}/calexport_results"
+      tal:define="events view/events"
+      method="get" i18n:domain="ftw.calendarexport">
+    <table tal:condition="events">
+        <tr>
+            <th><input type="checkbox" class="selectAll" /></th>
+            <th i18n:translate="label_title">Title</th>
+            <th i18n:translate="label_from">From</th>
+            <th i18n:translate="label_to">To</th>
+        </tr>
+        <tr tal:repeat="brain events">
+            <td><input type="checkbox" name="uids:list" tal:attributes="value brain/UID"/></td>
+            <td><a tal:attributes="href brain/getURL" tal:content="brain/Title" /></td>
+            <td tal:content="python:context.toLocalizedTime(brain.start)" />
+            <td tal:content="python:context.toLocalizedTime(brain.end)" />
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="submit" name="export-events"
+                       class="context allowMultiSubmit" value="pdf" />
+                <input type="submit" name="export-events"
+                       class="context allowMultiSubmit" value="ical" />
+            </td>
+        </tr>
+    </table>
+    <p tal:condition="not: events" i18n:translate="label_noevents">No events found</p>
+</form>
