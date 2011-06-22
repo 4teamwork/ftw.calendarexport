@@ -2,6 +2,7 @@ from DateTime import DateTime
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import getMultiAdapter
 
 
 class CalendarExportResults(BrowserView):
@@ -10,19 +11,18 @@ class CalendarExportResults(BrowserView):
 
     def __call__(self):
         if self.request.form.get('export-events', '') == 'pdf':
-            return self.export_pdf(self.request.form.get('uids', []))
+            return getMultiAdapter((self.context, self.request),
+                                   name=u'export_pdf')()
         elif self.request.form.get('export-events', '') == 'ical':
-            return self.export_ical(self.request.form.get('uids', []))
+            return getMultiAdapter((self.context, self.request),
+                                   name=u'export_ics')()
         return self.template()
 
-    def events(self, uids=[]):
+    def events(self):
         """ Returns events searching 'from' and 'to' from request.
-            If there is the argument 'uids' the request is ignored.
-            If there are no 'uids' and no data in request returns nothing.
+            If there are no data in request returns nothing.
         """
         catalog = getToolByName(self.context, 'portal_catalog')
-        if uids:
-            return catalog({'uid': uids})
         if self.request.form.get('from','') and self.request.form.get('to',''):
             start = DateTime(self.request.form.get('from','')).Date()
             end = DateTime(self.request.form.get('to','')).Date()
@@ -32,14 +32,3 @@ class CalendarExportResults(BrowserView):
                 end = {'range':'max', 'query': end}))
         return
 
-    def export_ical(self, uids):
-        """
-        """
-        events = self.events(uids=uids)
-        return 'ical\n====\n %s' % '\n'.join(uids)
-
-    def export_pdf(self, uids):
-        """
-        """
-        events = self.events(uids=uids)
-        return 'pdf\n===\n%s' % '\n'.join(uids)

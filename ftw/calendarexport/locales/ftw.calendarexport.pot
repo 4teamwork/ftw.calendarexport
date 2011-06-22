@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-06-21 14:03+0000\n"
+"POT-Creation-Date: 2011-06-22 06:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,29 @@ msgstr ""
 "Domain: ftw.calendarexport\n"
 
 #. Default: "Export"
-#: ftw.calendarexport/ftw/calendarexport/export.pt:21
+#: ftw.calendarexport/ftw/calendarexport/export.pt:24
 msgid "label_export"
 msgstr ""
 
 #. Default: "From"
-#: ftw.calendarexport/ftw/calendarexport/export.pt:17
-#: ftw.calendarexport/ftw/calendarexport/results.pt:18
+#: ftw.calendarexport/ftw/calendarexport/export.pt:20
+#: ftw.calendarexport/ftw/calendarexport/results.pt:21
 msgid "label_from"
 msgstr ""
 
+#. Default: "No events found"
+#: ftw.calendarexport/ftw/calendarexport/results.pt:39
+msgid "label_noevents"
+msgstr ""
+
 #. Default: "Title"
-#: ftw.calendarexport/ftw/calendarexport/results.pt:17
+#: ftw.calendarexport/ftw/calendarexport/results.pt:20
 msgid "label_title"
 msgstr ""
 
 #. Default: "To"
-#: ftw.calendarexport/ftw/calendarexport/export.pt:19
-#: ftw.calendarexport/ftw/calendarexport/results.pt:19
+#: ftw.calendarexport/ftw/calendarexport/export.pt:22
+#: ftw.calendarexport/ftw/calendarexport/results.pt:22
 msgid "label_to"
 msgstr ""
 
