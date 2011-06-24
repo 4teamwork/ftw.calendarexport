@@ -25,7 +25,7 @@ class CalendarExportResults(BrowserView):
         catalog = getToolByName(self.context, 'portal_catalog')
         if self.request.form.get('from','') and self.request.form.get('to',''):
             start = DateTime(self.request.form.get('from','')).Date()
-            end = DateTime(self.request.form.get('to','')).Date()
+            end = '%s 23:59:59' % DateTime(self.request.form.get('to','')).Date()
             return catalog(dict(
                 portal_type='Event',
                 start = {'range':'min', 'query': start},
