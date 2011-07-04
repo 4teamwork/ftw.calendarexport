@@ -30,10 +30,10 @@ class CalendarExportResults(BrowserView):
         if self.request.form.get('from','') and self.request.form.get('to',''):
             start = self.request.form.get('from','').split('.')
             start.reverse()
-            start = DateTime(*[int(p) for p in start])
+            start = DateTime(*[int(p) for p in start]).earliestTime()
             end = self.request.form.get('to','').split('.')
             end.reverse()
-            end = DateTime(*[int(p) for p in end+[23,59,59]])
+            end = DateTime(*[int(p) for p in end]).latestTime()
             return catalog(dict(
                 portal_type='Event',
                 start = {'range':'min', 'query': start},
