@@ -16,11 +16,13 @@
                 <td tal:content="python:context.toLocalizedTime(brain.end)" />
             </tr>
         </table>
-<!-- pdf export noch nicht
+
         <input type="submit" name="export-events"
+               tal:condition="view/enable_pdf"
                class="context allowMultiSubmit" value="pdf" />
--->
+
         <input type="submit" name="export-events"
+               tal:condition="view/enable_ical"
                class="context allowMultiSubmit" value="ical" />
     </tal:events>
     <p tal:condition="not: events" i18n:translate="label_noevents">No events found</p>

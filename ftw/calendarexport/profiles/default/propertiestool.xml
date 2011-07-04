@@ -2,5 +2,7 @@
 <object name="portal_properties">
     <object name="calendarexport_properties" meta_type="Plone Property Sheet">
         <property name="active" type="boolean">false</property>
+        <property name="pdf_export" type="boolean">false</property>
+        <property name="ical_export" type="boolean">true</property>
     </object>
 </object>

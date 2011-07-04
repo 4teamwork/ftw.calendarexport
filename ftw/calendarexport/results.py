@@ -10,6 +10,10 @@ class CalendarExportResults(BrowserView):
     template = ViewPageTemplateFile('results.pt')
 
     def __call__(self):
+        props = getToolByName(self.context, 'portal_properties').calendarexport_properties
+        self.enable_ical = props.getProperty('ical_export')
+        self.enable_pdf = props.getProperty('pdf_export')
+        
         if self.request.form.get('export-events', '') == 'pdf':
             return getMultiAdapter((self.context, self.request),
                                    name=u'export_pdf')()
