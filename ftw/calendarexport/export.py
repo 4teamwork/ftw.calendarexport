@@ -1,11 +1,12 @@
 from Products.ATContentTypes.interface.interfaces import ICalendarSupport
+from plone.memoize import ram
 from plonegov.pdflatex.browser.converter import LatexCTConverter
 from Products.CMFCore.utils import getToolByName
+from Products.ATContentTypes.lib import calendarsupport as cs
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets import ViewletBase
 from Acquisition import aq_inner
-from Products.ATContentTypes.browser.calendar import CalendarView
-
+from Products.ATContentTypes.browser.calendar import CalendarView, cachekey
 
 class ExportEvents(ViewletBase):
     render = ViewPageTemplateFile('export.pt')
@@ -25,6 +26,26 @@ class ExportICS(CalendarView):
         self.events = catalog(UID=uids, object_provides=provides)
         if not uids:
             self.events = []
+
+    @ram.cache(cachekey)
+    def feeddata(self):
+        context = aq_inner(self.context)
+        data = cs.ICS_HEADER % dict(prodid=cs.PRODID)
+        data += 'X-WR-CALNAME:%s\n' % context.Title()
+        data += 'X-WR-CALDESC:%s\n' % context.Description()
+        for brain in self.events:
+            tmp_data = brain.getObject().getICal()
+            if brain.start.Time() == brain.end.Time() == '00:00:00':
+                lines = tmp_data.split('\n')
+                for i, line in enumerate(lines):
+                    if line.startswith('DTSTART'):
+                        lines[i] = 'DTSTART:%s' % str(brain.start).replace('/','')
+                    elif line.startswith('DTEND'):
+                        lines[i] = 'DTEND:%s' % str(brain.end).replace('/','')
+                tmp_data = '\n'.join(lines)
+            data += tmp_data
+        data += cs.ICS_FOOTER
+        return data
 
 
 class EventsAsPDF(LatexCTConverter):
