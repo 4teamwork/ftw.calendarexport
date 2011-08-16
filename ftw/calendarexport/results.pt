@@ -4,7 +4,7 @@
     <tal:events condition="events">
         <table class="listing">
             <tr>
-                <th><input type="checkbox" onclick="toggleSelect(this,'uids:list');" checked="checked" /></th>
+                <th><input type="checkbox" onclick="toggleSelect(this,'uids:list', 1);" checked="checked" /></th>
                 <th i18n:translate="label_title">Title</th>
                 <th i18n:translate="label_from">From</th>
                 <th i18n:translate="label_to">To</th>
