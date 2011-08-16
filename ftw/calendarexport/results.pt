@@ -4,13 +4,14 @@
     <tal:events condition="events">
         <table class="listing">
             <tr>
-                <th><input type="checkbox" onclick="toggleSelect(this,'uids:list');" /></th>
+                <th><input type="checkbox" onclick="toggleSelect(this,'uids:list');" checked="checked" /></th>
                 <th i18n:translate="label_title">Title</th>
                 <th i18n:translate="label_from">From</th>
                 <th i18n:translate="label_to">To</th>
             </tr>
             <tr tal:repeat="brain events">
-                <td><input type="checkbox" name="uids:list" tal:attributes="value brain/UID"/></td>
+                <td><input type="checkbox" name="uids:list" checked="checked"
+                           tal:attributes="value brain/UID" /></td>
                 <td><a tal:attributes="href brain/getURL" tal:content="brain/Title" /></td>
                 <td tal:content="python:context.toLocalizedTime(brain.start)" />
                 <td tal:content="python:context.toLocalizedTime(brain.end)" />
