@@ -10,7 +10,7 @@ from Products.ATContentTypes.browser.calendar import CalendarView, cachekey
 
 class ExportEvents(ViewletBase):
     render = ViewPageTemplateFile('export.pt')
-    
+
     def active(self):
         props = getToolByName(self.context, 'portal_properties').calendarexport_properties
         return props.getProperty('active')
@@ -35,7 +35,7 @@ class ExportICS(CalendarView):
         data += 'X-WR-CALDESC:%s\n' % context.Description()
         for brain in self.events:
             tmp_data = brain.getObject().getICal()
-            if brain.start.Time() == brain.end.Time() == '00:00:00':
+            if brain.wholeDay:
                 lines = tmp_data.split('\n')
                 for i, line in enumerate(lines):
                     if line.startswith('DTSTART'):
