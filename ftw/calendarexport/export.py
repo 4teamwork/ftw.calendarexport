@@ -31,8 +31,6 @@ class ExportICS(CalendarView):
     def feeddata(self):
         context = aq_inner(self.context)
         data = cs.ICS_HEADER % dict(prodid=cs.PRODID)
-        data += 'X-WR-CALNAME:%s\n' % context.Title()
-        data += 'X-WR-CALDESC:%s\n' % context.Description()
         for brain in self.events:
             tmp_data = brain.getObject().getICal()
             if brain.wholeDay:
@@ -41,7 +39,8 @@ class ExportICS(CalendarView):
                     if line.startswith('DTSTART'):
                         lines[i] = 'DTSTART:%s' % str(brain.start).replace('/','')
                     elif line.startswith('DTEND'):
-                        lines[i] = 'DTEND:%s' % str(brain.end).replace('/','')
+                        lines[i] = 'DTEND:%s' % str((context.end()+1).Date()).replace('/', '')
+                        lines[i] += '\nTRANSP:OPAQUE'
                 tmp_data = '\n'.join(lines)
             data += tmp_data
         data += cs.ICS_FOOTER
