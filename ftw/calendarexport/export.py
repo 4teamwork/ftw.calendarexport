@@ -39,7 +39,7 @@ class ExportICS(CalendarView):
                     if line.startswith('DTSTART'):
                         lines[i] = 'DTSTART:%s' % str(brain.start).replace('/','')
                     elif line.startswith('DTEND'):
-                        lines[i] = 'DTEND:%s' % str((context.end()+1).Date()).replace('/', '')
+                        lines[i] = 'DTEND:%s' % str((brain.end+1).Date()).replace('/', '')
                         lines[i] += '\nTRANSP:OPAQUE'
                 tmp_data = '\n'.join(lines)
             data += tmp_data
