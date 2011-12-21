@@ -1,6 +1,6 @@
 <form tal:attributes="action string:${context/portal_url}/calexport_results"
       tal:define="events view/events"
-      method="get" i18n:domain="ftw.calendarexport">
+      method="post" i18n:domain="ftw.calendarexport">
     <tal:events condition="events">
         <table class="listing">
             <tr>
