@@ -12,7 +12,10 @@ class ExportEvents(ViewletBase):
     render = ViewPageTemplateFile('export.pt')
 
     def active(self):
-        props = getToolByName(self.context, 'portal_properties').calendarexport_properties
+        props = getToolByName(self.context, 'portal_properties').get(
+            'calendarexport_properties', None)
+        if not props:
+            return False
         return props.getProperty('active')
 
 
@@ -29,7 +32,6 @@ class ExportICS(CalendarView):
 
     @ram.cache(cachekey)
     def feeddata(self):
-        context = aq_inner(self.context)
         data = cs.ICS_HEADER % dict(prodid=cs.PRODID)
         for brain in self.events:
             tmp_data = brain.getObject().getICal()

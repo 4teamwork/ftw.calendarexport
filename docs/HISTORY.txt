@@ -4,6 +4,10 @@ Changelog
 
 1.1
 ---
+
+* Dont raise an error if the product is not installed.
+  [Julian Infanger]
+
 * Changed export forms method from get to post.
   [21.12.2011, jinfanger]
 
