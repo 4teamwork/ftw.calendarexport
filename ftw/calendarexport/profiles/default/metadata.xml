@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
-  <version>0</version>
+  <version>1100</version>
   <dependencies>
-<!--
-    <dependency>profile-ftw-calendar:default</dependency>
-    <dependency>profile-plonegov.pdflatex:default</dependency>
--->
+    <dependency>profile-ftw.calendar:default</dependency>
   </dependencies>
 </metadata>
