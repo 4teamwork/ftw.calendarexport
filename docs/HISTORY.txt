@@ -2,29 +2,23 @@ Changelog
 =========
 
 
-1.1
----
+1.1 (unreleased)
+----------------
 
-* Dont raise an error if the product is not installed.
-  [Julian Infanger]
+- Dont raise an error if the product is not installed.
+  [ninfaj]
 
-* Changed export forms method from get to post.
-  [21.12.2011, jinfanger]
+- Changed export forms method from get to post.
+  [ninfaj]
 
-* Issue #331 Zusaetzliche Funktionen Terminkalender
-  https://extranet.4teamwork.ch/projects/ict-basler-schulen/tracker-edubs/331/
-  Results: default is checked, no date input by user allowed.
-  [04.07.2011, jinfanger]
+- Results: default is checked, no date input by user allowed.
+  [ninfaj]
 
-* Issue #331 Zusaetzliche Funktionen Terminkalender
-  https://extranet.4teamwork.ch/projects/ict-basler-schulen/tracker-edubs/331/
-  Added properties for pdf and ical export.
-  [04.07.2011, jinfanger]
+- Added properties for pdf and ical export.
+  [ninfaj]
 
-* Issue #331 Zusaetzliche Funktionen Terminkalender
-  https://extranet.4teamwork.ch/projects/ict-basler-schulen/tracker-edubs/331/
-  Full-day-events are now exported as full-day-events.
-  [04.07.2011, jinfanger]
+- Full-day-events are now exported as full-day-events.
+  [ninfaj]
 
 1.0-dev
 -------
