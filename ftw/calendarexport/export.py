@@ -8,6 +8,7 @@ from plone.app.layout.viewlets import ViewletBase
 from Acquisition import aq_inner
 from Products.ATContentTypes.browser.calendar import CalendarView, cachekey
 
+
 class ExportEvents(ViewletBase):
     render = ViewPageTemplateFile('export.pt')
 
@@ -25,7 +26,7 @@ class ExportICS(CalendarView):
         context = aq_inner(self.context)
         catalog = getToolByName(context, 'portal_catalog')
         provides = ICalendarSupport.__identifier__
-        uids = self.request.form.get('uids',[])
+        uids = self.request.form.get('uids', [])
         self.events = catalog(UID=uids, object_provides=provides)
         if not uids:
             self.events = []
@@ -39,9 +40,11 @@ class ExportICS(CalendarView):
                 lines = tmp_data.split('\n')
                 for i, line in enumerate(lines):
                     if line.startswith('DTSTART'):
-                        lines[i] = 'DTSTART:%s' % str(brain.start).replace('/','')
+                        lines[i] = 'DTSTART:%s' % str(brain.start).replace('/',
+                                                                           '')
                     elif line.startswith('DTEND'):
-                        lines[i] = 'DTEND:%s' % str((brain.end+1).Date()).replace('/', '')
+                        lines[i] = 'DTEND:%s' % str(
+                            (brain.end + 1).Date()).replace('/', '')
                         lines[i] += '\nTRANSP:OPAQUE'
                 tmp_data = '\n'.join(lines)
             data += tmp_data
