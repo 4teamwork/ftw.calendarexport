@@ -34,7 +34,7 @@ setup(name='ftw.calendarexport',
       install_requires=[
         'setuptools',
         'ftw.calendar',
-        'plonegov.pdflatex',
+        'ftw.calendarwidget'
         ],
       entry_points="""
       # -*- Entry points: -*-

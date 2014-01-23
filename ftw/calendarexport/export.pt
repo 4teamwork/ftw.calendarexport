@@ -1,19 +1,19 @@
 <div id="calexport" tal:condition="view/active" i18n:domain="ftw.calendarexport">
     <script type="text/javascript">
-        jq(function() {
-            jq('#cal_from, #cal_to').datepicker({
+        $(function() {
+            $('#cal_from, #cal_to').datepicker({
                 changeMonth: true,
                 changeYear: true,
                 dateFormat: 'dd.mm.yy',
                 maxDate:'+20y',
                 minDate:'-20y'});
 
-            jq('input[name=export-search-button]').click(function(e) {
+            $('input[name=export-search-button]').click(function(e) {
                 e.preventDefault();
-                var formdata = jq('#exportsearchform').serializeArray();
-                jq.get('calexport_results', formdata, function(data) {
-                    jq('#calexport-searchresults').html(data);
-                    jq('#calexport-searchresults').show();
+                var formdata = $('#exportsearchform').serializeArray();
+                $.get('calexport_results', formdata, function(data) {
+                    $('#calexport-searchresults').html(data);
+                    $('#calexport-searchresults').show();
                 });
             });
         });
