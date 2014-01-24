@@ -4,6 +4,8 @@ version = '1.1.dev0'
 maintainer = 'Julian Infanger'
 
 tests_require = ['plone.app.testing',
+                 'ftw.builder',
+                 'ftw.testbrowser'
                  ]
 
 setup(name='ftw.calendarexport',
@@ -34,7 +36,7 @@ setup(name='ftw.calendarexport',
       install_requires=[
         'setuptools',
         'ftw.calendar',
-        'ftw.calendarwidget'
+        'ftw.calendarwidget',
         ],
       entry_points="""
       # -*- Entry points: -*-
