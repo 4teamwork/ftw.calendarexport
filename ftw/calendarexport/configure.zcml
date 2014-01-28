@@ -9,7 +9,6 @@
   <i18n:registerTranslations directory="locales" />
 
   <include package="ftw.calendar" />
-  <include package="plonegov.pdflatex" />
 
   <browser:viewlet
       name="ftw.calendarexport.exportevents"
@@ -31,20 +30,6 @@
       name="export_ics"
       class=".export.ExportICS"
       permission="zope2.View"
-      />
-
-  <browser:page
-      for="*"
-      name="export_pdf"
-      permission="zope2.View"
-      class=".exportpdf.ExportPDFView"
-      />
-
-  <browser:view
-      for="*"
-      name="pdflatex_convert_object"
-      class=".export.EventsAsPDF"
-      permission="zope.Public"
       />
 
   <genericsetup:registerProfile
