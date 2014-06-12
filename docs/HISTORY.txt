@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1 (unreleased)
+1.1 (2014-06-12)
 ----------------
 
 - Dont raise an error if the product is not installed.
