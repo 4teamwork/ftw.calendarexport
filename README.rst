@@ -23,9 +23,9 @@ On the ftwcalendar_view view you now see a viewlet which enables you to export m
 Links
 =====
 
-- Main github project repository: https://github.com/4teamwork/ftw.calendarexport
-- Issue tracker: https://github.com/4teamwork/ftw.calendarexport/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.calendarexport
+- Github: https://github.com/4teamwork/ftw.calendarexport
+- Issues: https://github.com/4teamwork/ftw.calendarexport/issues
+- Pypi: http://pypi.python.org/pypi/ftw.calendarexport
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.contentpage
 
 Compatibility
