@@ -5,7 +5,8 @@ maintainer = 'Julian Infanger'
 
 tests_require = ['plone.app.testing',
                  'ftw.builder',
-                 'ftw.testbrowser'
+                 'ftw.testbrowser',
+                 'unittest2',
                  ]
 
 setup(name='ftw.calendarexport',
