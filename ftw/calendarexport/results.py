@@ -1,6 +1,7 @@
 from DateTime import DateTime
-from Products.Five import BrowserView
+from Products.ATContentTypes.interface.interfaces import ICalendarSupport
 from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 
@@ -38,8 +39,7 @@ class CalendarExportResults(BrowserView):
             end.reverse()
             end = DateTime(*[int(p) for p in end]).latestTime()
             return catalog(dict(
-                portal_type='Event',
+                object_provides = ICalendarSupport.__identifier__,
                 start = {'range':'min', 'query': start},
                 end = {'range':'max', 'query': end}))
         return
-
