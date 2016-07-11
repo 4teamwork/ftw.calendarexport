@@ -21,14 +21,17 @@ class TestCalendarExport(TestCase):
 
     def test_at_export(self):
         folder = create(Builder('folder').titled('testfolder'))
-        event1 = create(Builder('event').titled(
-            'event1').within(
-            folder).having(
-            startDate='2014-01-23 11:00', endDate='2014-01-23 13:00'))
-        event2 = create(Builder('event').titled(
-        'event2').within(
-        folder).having(
-        startDate='2014-01-25 11:00', endDate='2014-01-25 13:00'))
+        event1 = create(Builder('event')
+                        .titled('event1')
+                        .within(folder)
+                        .having(startDate='2014-01-23 11:00',
+                                endDate='2014-01-23 13:00'))
+        event2 = create(Builder('event')
+                        .titled('event2')
+                        .within(folder)
+                        .having(startDate='2014-01-25 11:00',
+                                endDate='2014-01-25 13:00'))
+
         view = folder.restrictedTraverse('export_ics')
         uids = []
         uids.append(event1.UID())
@@ -37,10 +40,14 @@ class TestCalendarExport(TestCase):
         view()
         feeddata = view.feeddata()
         feed_list = feeddata.split('BEGIN:VEVENT')
-        self.assertIn('SUMMARY:event1\nDTSTART:20140123T100000Z\n'
-        'DTEND:20140123T120000Z\nCLASS:PUBLIC\nEND:VEVENT\n', feed_list[1])
-        self.assertIn('SUMMARY:event2\nDTSTART:20140125T100000Z\n'
-        'DTEND:20140125T120000Z\nCLASS:PUBLIC\nEND:VEVENT\nEND:VCALENDAR\n',
+
+        self.assertIn(
+            'SUMMARY:event1\nDTSTART:20140123T100000Z\n'
+            'DTEND:20140123T120000Z\nCLASS:PUBLIC\nEND:VEVENT\n',
+            feed_list[1])
+        self.assertIn(
+            'SUMMARY:event2\nDTSTART:20140125T100000Z\n'
+            'DTEND:20140125T120000Z\nCLASS:PUBLIC\nEND:VEVENT\nEND:VCALENDAR\n',
             feed_list[2])
 
     def test_dx_export(self):
