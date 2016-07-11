@@ -7,6 +7,8 @@ tests_require = ['plone.app.testing',
                  'ftw.builder',
                  'ftw.testbrowser',
                  'unittest2',
+                 'plone.app.event',
+                 'ftw.events',
                  ]
 
 setup(name='ftw.calendarexport',
