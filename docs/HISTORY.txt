@@ -5,7 +5,11 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Dropping plone 4.1 and 4.2 support.
+  [lknoepfel]
+
+- Added support for dx event types.
+  [lknoepfel]
 
 
 1.2 (2015-12-08)

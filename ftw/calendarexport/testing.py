@@ -7,6 +7,7 @@ from plone.testing import z2
 from zope.configuration import xmlconfig
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.calendarexport.tests import builder
+from ftw.events.tests import builders
 
 class FtwCalendarexportLayer(PloneSandboxLayer):
 
@@ -21,9 +22,13 @@ class FtwCalendarexportLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
+        z2.installProduct(app, 'Products.DateRecurringIndex')
+        z2.installProduct(app, 'ftw.simplelayout')
+        z2.installProduct(app, 'ftw.events')
         z2.installProduct(app, 'ftw.calendar')
 
     def setUpPloneSite(self, portal):
+        applyProfile(portal, 'ftw.events:default')
         applyProfile(portal, 'ftw.calendar:default')
         applyProfile(portal, 'ftw.calendarexport:default')
 

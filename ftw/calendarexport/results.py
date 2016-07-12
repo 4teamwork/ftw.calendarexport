@@ -1,8 +1,8 @@
 from DateTime import DateTime
-from Products.ATContentTypes.interface.interfaces import ICalendarSupport
+from ftw.calendarexport import EVENT_INTERFACES
 from Products.CMFCore.utils import getToolByName
-from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.Five import BrowserView
 from zope.component import getMultiAdapter
 
 
@@ -17,7 +17,7 @@ class CalendarExportResults(BrowserView):
             return
         self.enable_ical = props.getProperty('ical_export')
         self.enable_pdf = props.getProperty('pdf_export')
-        
+
         if self.request.form.get('export-events', '') == 'pdf':
             return getMultiAdapter((self.context, self.request),
                                    name=u'export_pdf')()
@@ -39,7 +39,7 @@ class CalendarExportResults(BrowserView):
             end.reverse()
             end = DateTime(*[int(p) for p in end]).latestTime()
             return catalog(dict(
-                object_provides = ICalendarSupport.__identifier__,
+                object_provides = EVENT_INTERFACES,
                 start = {'range':'min', 'query': start},
                 end = {'range':'max', 'query': end}))
         return
