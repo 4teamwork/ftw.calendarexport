@@ -3,11 +3,14 @@ from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.calendarexport.testing import FTW_CALENDAREXPORT_INTEGRATION_TESTING
+from ftw.testing.staticuids import staticuid
+from ftw.testing import freeze
 from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
 from unittest2 import TestCase
+import re
 
 
 class TestCalendarExport(TestCase):
@@ -50,29 +53,58 @@ class TestCalendarExport(TestCase):
             'DTEND:20140125T120000Z\nCLASS:PUBLIC\nEND:VEVENT\nEND:VCALENDAR\n',
             feed_list[2])
 
+    @staticuid()
     def test_dx_export(self):
-        folder = create(Builder('event folder'))
-        today = datetime.now()
-        tomorrow = today + timedelta(days=1)
-        dayaftertomorrow = tomorrow + timedelta(days=1)
-        event1 = create(Builder('event page')
-                        .titled(u'Event One')
-                        .within(folder)
-                        .starting(today)
-                        .ending(tomorrow))
-        event2 = create(Builder('event page')
-                        .titled(u'Event Two')
-                        .within(folder)
-                        .starting(tomorrow)
-                        .ending(dayaftertomorrow))
+        with freeze(datetime(2016, 7, 12, 11, 24)) as clock:
+            folder = create(Builder('event folder'))
+            today = datetime.now()
+            tomorrow = today + timedelta(days=1)
+            dayaftertomorrow = tomorrow + timedelta(days=1)
+            event1 = create(Builder('event page')
+                            .titled(u'Event One')
+                            .within(folder)
+                            .starting(today)
+                            .ending(tomorrow))
+            event2 = create(Builder('event page')
+                            .titled(u'Event Two')
+                            .within(folder)
+                            .starting(tomorrow)
+                            .ending(dayaftertomorrow))
 
-        view = folder.restrictedTraverse('export_ics')
-        uids = list()
-        uids.append(event1.UID())
-        uids.append(event2.UID())
-        self.portal.REQUEST.form['uids'] = uids
-        view()
-        feeddata = view.feeddata()
+            view = folder.restrictedTraverse('export_ics')
+            uids = list()
+            uids.append(event1.UID())
+            uids.append(event2.UID())
+            self.portal.REQUEST.form['uids'] = uids
+            view()
+            feeddata = view.feeddata().replace('\r\n', '\n')
 
-        self.assertIn('SUMMARY:Event One', feeddata)
-        self.assertIn('SUMMARY:Event Two', feeddata)
+            events = re.findall('BEGIN:VEVENT\n(.*?)\nEND:VEVENT',
+                                feeddata, flags=re.DOTALL)
+            # convert vevent into dict
+            events = [{kv.split(':', 1)[0]: kv.split(':', 1)[1] for kv in
+                      event.split('\n')} for event in events]
+
+            self.assertEqual(
+                [{'CREATED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'DTEND;TZID=Etc/Greenwich;VALUE=DATE-TIME': '20160713T112400',
+                  'DTSTAMP;VALUE=DATE-TIME': '20160712T112400Z',
+                  'DTSTART;TZID=Etc/Greenwich;VALUE=DATE-TIME':
+                      '20160712T112400',
+                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'SUMMARY': 'Event One',
+                  'UID': 'testdxexport00000000000000000003',
+                  'URL': 'http://nohost/plone/ftw-events-eventfolder/event'
+                         '-one'},
+                 {'CREATED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'DTEND;TZID=Etc/Greenwich;VALUE=DATE-TIME': '20160714T112400',
+                  'DTSTAMP;VALUE=DATE-TIME': '20160712T112400Z',
+                  'DTSTART;TZID=Etc/Greenwich;VALUE=DATE-TIME':
+                      '20160713T112400',
+                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'SUMMARY': 'Event Two',
+                  'UID': 'testdxexport00000000000000000004',
+                  'URL': 'http://nohost/plone/ftw-events-eventfolder/event'
+                         '-two'}],
+                events
+            )
