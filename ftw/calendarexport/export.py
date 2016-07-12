@@ -8,6 +8,10 @@ from Products.ATContentTypes.lib import calendarsupport as cs
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+if PLONE_APP_EVENTS_AVAILABLE:
+    from plone.app.event.dx.interfaces import IDXEvent
+    from plone.app.event.ical import construct_icalendar
+
 
 class ExportEvents(ViewletBase):
     render = ViewPageTemplateFile('export.pt')
@@ -32,7 +36,8 @@ class ExportICS(CalendarView):
 
     @ram.cache(cachekey)
     def feeddata(self):
-        data = cs.ICS_HEADER % dict(prodid=cs.PRODID)
+        header = cs.ICS_HEADER % dict(prodid=cs.PRODID)
+        events = []
         for brain in self.events:
             obj = brain.getObject()
             event_data = ""
@@ -41,13 +46,11 @@ class ExportICS(CalendarView):
                 event_data = obj.getICal()
 
             if PLONE_APP_EVENTS_AVAILABLE:
-                from plone.app.event.dx.interfaces import IDXEvent
-                from plone.app.event.ical import construct_icalendar
                 if IDXEvent.providedBy(obj):
                     cal = construct_icalendar(obj, obj)
                     event = cal.subcomponents[0]
                     event_data = event.to_ical()
 
-            data += event_data
-        data += cs.ICS_FOOTER
-        return data
+            events.append(event_data)
+
+        return header + "".join(events) + cs.ICS_FOOTER
