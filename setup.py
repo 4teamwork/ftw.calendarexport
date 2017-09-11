@@ -6,7 +6,7 @@ maintainer = 'Julian Infanger'
 tests_require = ['plone.app.testing',
                  'ftw.builder',
                  'ftw.testbrowser',
-                 'ftw.testing',
+                 'ftw.testing <= 1.15.0',
                  'unittest2',
                  'plone.app.event',
                  'ftw.events [tests]',
