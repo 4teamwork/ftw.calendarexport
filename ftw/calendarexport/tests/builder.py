@@ -1,8 +1,9 @@
 from ftw.builder.archetypes import ArchetypesBuilder
 from ftw.builder import builder_registry
 
-class EventBuilder(ArchetypesBuilder):
+
+class ArchetypesEventBuilder(ArchetypesBuilder):
     portal_type = 'Event'
 
 
-builder_registry.register('event', EventBuilder)
+builder_registry.register('at event', ArchetypesEventBuilder)
