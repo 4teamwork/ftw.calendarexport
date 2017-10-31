@@ -9,6 +9,7 @@ from plone.app.testing import login
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from pytz import UTC
 from unittest2 import TestCase
 import re
 
@@ -55,7 +56,7 @@ class TestCalendarExport(TestCase):
 
     @staticuid()
     def test_dx_export(self):
-        with freeze(datetime(2016, 7, 12, 11, 24)) as clock:
+        with freeze(datetime(2016, 7, 12, 11, 24, tzinfo=UTC)) as clock:
             folder = create(Builder('event folder'))
             today = datetime.now()
             tomorrow = today + timedelta(days=1)
