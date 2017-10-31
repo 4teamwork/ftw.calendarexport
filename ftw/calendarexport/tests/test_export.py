@@ -24,12 +24,12 @@ class TestCalendarExport(TestCase):
 
     def test_at_export(self):
         folder = create(Builder('folder').titled('testfolder'))
-        event1 = create(Builder('event')
+        event1 = create(Builder('at event')
                         .titled('event1')
                         .within(folder)
                         .having(startDate='2014-01-23 11:00',
                                 endDate='2014-01-23 13:00'))
-        event2 = create(Builder('event')
+        event2 = create(Builder('at event')
                         .titled('event2')
                         .within(folder)
                         .having(startDate='2014-01-25 11:00',
