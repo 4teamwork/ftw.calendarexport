@@ -87,22 +87,22 @@ class TestCalendarExport(TestCase):
                       event.split('\n')} for event in events]
 
             self.assertEqual(
-                [{'CREATED;VALUE=DATE-TIME': '20160712T102400Z',
+                [{'CREATED;VALUE=DATE-TIME': '20160712T112400Z',
                   'DTEND;TZID=Etc/Greenwich;VALUE=DATE-TIME': '20160713T112400',
                   'DTSTAMP;VALUE=DATE-TIME': '20160712T112400Z',
                   'DTSTART;TZID=Etc/Greenwich;VALUE=DATE-TIME':
                       '20160712T112400',
-                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T112400Z',
                   'SUMMARY': 'Event One',
                   'UID': 'testdxexport00000000000000000003',
                   'URL': 'http://nohost/plone/ftw-events-eventfolder/event'
                          '-one'},
-                 {'CREATED;VALUE=DATE-TIME': '20160712T102400Z',
+                 {'CREATED;VALUE=DATE-TIME': '20160712T112400Z',
                   'DTEND;TZID=Etc/Greenwich;VALUE=DATE-TIME': '20160714T112400',
                   'DTSTAMP;VALUE=DATE-TIME': '20160712T112400Z',
                   'DTSTART;TZID=Etc/Greenwich;VALUE=DATE-TIME':
                       '20160713T112400',
-                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T102400Z',
+                  'LAST-MODIFIED;VALUE=DATE-TIME': '20160712T112400Z',
                   'SUMMARY': 'Event Two',
                   'UID': 'testdxexport00000000000000000004',
                   'URL': 'http://nohost/plone/ftw-events-eventfolder/event'
